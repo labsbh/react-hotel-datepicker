@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 import { transition } from '../stories/styled';
 
-const DayWrapper = styled.td<{ selected: boolean; hover: boolean }>`
+type ExtendedProps = { selected: boolean; hover: boolean };
+
+const DayWrapper = styled.td.attrs<ExtendedProps>(({ className }) => ({
+  className: `${className || ''} day`
+}))<ExtendedProps>`
   background-color: ${(props): string =>
     props.selected
-      ? props.theme.days.selected.backgroundColor.base
-      : props.hover
-      ? props.theme.days.selected.backgroundColor.hover
-      : 'transparent'};
+        ? props.theme.days.selected.backgroundColor.base
+        : props.hover
+            ? props.theme.days.selected.backgroundColor.hover
+            : 'transparent'};
   color: ${(props): string =>
     props.selected
-      ? props.theme.days.selected.textColor
-      : props.theme.days.textColor};
+        ? props.theme.days.selected.textColor
+        : props.theme.days.textColor};
   padding: ${(props): string => props.theme.days.padding};
   ${transition}
 
@@ -25,7 +29,7 @@ const DayWrapper = styled.td<{ selected: boolean; hover: boolean }>`
 
     &:after {
       background-color: ${(props): string =>
-        props.theme.days.noCheckIn.backgroundColor};
+    props.theme.days.noCheckIn.backgroundColor};
       bottom: 0;
       content: '';
       display: block;
@@ -43,7 +47,7 @@ const DayWrapper = styled.td<{ selected: boolean; hover: boolean }>`
 
     &:after {
       background-color: ${(props): string =>
-        props.theme.days.noCheckOut.backgroundColor};
+    props.theme.days.noCheckOut.backgroundColor};
       bottom: 0;
       content: '';
       display: block;
@@ -57,13 +61,13 @@ const DayWrapper = styled.td<{ selected: boolean; hover: boolean }>`
 
   &.invalid {
     background-color: ${(props): string =>
-      props.theme.days.invalid.backgroundColor};
+    props.theme.days.invalid.backgroundColor};
     color: ${(props): string => props.theme.days.invalid.textColor};
   }
 
   &.disabled {
     background-color: ${(props): string =>
-      props.theme.days.disabled.backgroundColor};
+    props.theme.days.disabled.backgroundColor};
     color: ${(props): string => props.theme.days.disabled.textColor};
     position: relative;
 
@@ -80,17 +84,17 @@ const DayWrapper = styled.td<{ selected: boolean; hover: boolean }>`
 
   &.day-of-week-disabled {
     background-color: ${(props): string =>
-      props.theme.days.dowDisabled.backgroundColor};
+    props.theme.days.dowDisabled.backgroundColor};
     color: ${(props): string => props.theme.days.dowDisabled.textColor};
   }
 
   &.today {
     background-color: ${(props): string =>
-      props.selected
+    props.selected
         ? props.theme.days.selected.backgroundColor.base
         : props.theme.days.today.backgroundColor};
     color: ${(props): string =>
-      props.selected
+    props.selected
         ? props.theme.days.selected.textColor
         : props.theme.days.today.textColor};
   }

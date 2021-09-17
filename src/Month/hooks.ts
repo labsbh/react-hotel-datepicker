@@ -103,7 +103,7 @@ const useIsValidDate = (): ((time: Date) => boolean) => {
 
       return true;
     },
-    [startDate, endDate, start, end],
+    [startDate, endDate, start, end, maxDays, minDays, selectForward, disabledDates.length, getClosest],
   );
 };
 
@@ -128,7 +128,7 @@ const useDayProperties = (): ((
   return useCallback(
     (date: Date, type: DayMonthType): DayOfMonth => {
       const isToday = differenceInCalendarDays(date, new Date()) === 0;
-      const isStartDate = isSameDay(date, startDate);
+      const isStartDate = startDate ? isSameDay(date, startDate) : false;
       let isValid = isValidDate(date);
       let isDayBeforeDisabledDate = false;
       let isDisabled = false;
@@ -245,16 +245,7 @@ const useDayProperties = (): ((
         isFirstDisabledDate: consecutiveDisableDates === 1,
       };
     },
-    [
-      getClosest,
-      isValidDate,
-      startDate,
-      disabledDates,
-      selectForward,
-      minDays,
-      enableCheckout,
-      t,
-    ],
+    [startDate, isValidDate, disabledDates, disabledDaysOfWeek, noCheckInDates, noCheckOutDates, getClosest, selectForward, minDays, enableCheckout, t],
   );
 };
 

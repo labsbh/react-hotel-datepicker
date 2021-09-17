@@ -6,11 +6,12 @@ export interface HotelDatePickerTheme {
     animationSpeed?: string;
     calendar?: {
         backgroundColor?: string;
+        border?: string;
         borderRadius?: string;
         boxShadow?: string;
         color?: string;
         fontSize?: string;
-        lineHeight: string;
+        lineHeight?: string;
         padding?: string;
         widths?: {
             sm?: string;
@@ -139,7 +140,7 @@ export declare type DayHoverCallback = (_day: Day, _left: number, _top: number) 
 export declare type OptionContext = {
     locale: Locale;
     format: string;
-    startDate: Date;
+    startDate: Date | false;
     endDate: Date | false;
     minDays: number;
     maxDays: number;
@@ -177,7 +178,7 @@ export interface InputElementProps {
 export declare type HotelDatepickerProps = {
     locale: Locale;
     format: string;
-    startDate: Date;
+    startDate: Date | false;
     endDate: Date | false;
     minNights: number;
     maxNights: number;

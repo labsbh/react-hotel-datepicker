@@ -3,6 +3,7 @@ import { ComponentType, ReactElement, RefObject } from 'react';
 import { enTranslations as translations } from './translations';
 
 type DeepRequired<T> = {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     [K in keyof T]: Required<DeepRequired<T[K]>>;
 };
 
@@ -11,11 +12,12 @@ export interface HotelDatePickerTheme {
     animationSpeed?: string;
     calendar?: {
         backgroundColor?: string;
+        border?: string;
         borderRadius?: string;
         boxShadow?: string;
         color?: string;
         fontSize?: string;
-        lineHeight: string;
+        lineHeight?: string;
         padding?: string;
         widths?: {
             sm?: string;
@@ -161,7 +163,7 @@ export type DayHoverCallback = (_day: Day, _left: number, _top: number) => any;
 export type OptionContext = {
     locale: Locale;
     format: string;
-    startDate: Date;
+    startDate: Date | false;
     endDate: Date | false;
     minDays: number;
     maxDays: number;
@@ -205,7 +207,7 @@ export interface InputElementProps {
 export type HotelDatepickerProps = {
     locale: Locale;
     format: string;
-    startDate: Date;
+    startDate: Date | false;
     endDate: Date | false;
     minNights: number;
     maxNights: number;

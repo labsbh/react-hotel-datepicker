@@ -134,7 +134,7 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
                     },
                 };
             },
-            [],
+            [onSelectRange],
         );
 
         useEffect(() => {

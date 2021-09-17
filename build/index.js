@@ -113,7 +113,7 @@ var useOutsideListener = function (ref, onClickOutside, preventContainerClose) {
         return function () {
             return document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [ref, onClickOutside]);
+    }, [ref, onClickOutside, preventContainerClose]);
 };
 var useCurrentWidth = function () {
     var _a = React.useState(getWidth()), width = _a[0], setWidth = _a[1];
@@ -183,6 +183,7 @@ var theme = {
     animationSpeed: '0.2s',
     calendar: {
         backgroundColor: '#fff',
+        border: '0 none',
         borderRadius: '5px',
         boxShadow: '8px 8px 40px 5px rgba(0, 0, 0, 0.08)',
         color: '#484c55',
@@ -311,7 +312,12 @@ var transition = "\n  transition-duration: 0.2s;\n  transition-property: color, 
 var Wrapper$2 = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  position: relative;\n"], ["\n  position: relative;\n"])));
 var templateObject_1$5;
 
-var DayWrapper = styled__default['default'].td(templateObject_1$4 || (templateObject_1$4 = __makeTemplateObject(["\n  background-color: ", ";\n  color: ", ";\n  padding: ", ";\n  ", "\n\n  &.valid {\n    cursor: pointer;\n  }\n\n  &.no-checkin {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 50%;\n      position: absolute;\n      right: 0;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.no-checkout {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 0;\n      position: absolute;\n      right: 50%;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.invalid {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.disabled {\n    background-color: ", ";\n    color: ", ";\n    position: relative;\n\n    &:after {\n      content: '\\00d7';\n      left: 50%;\n      position: absolute;\n      color: ", ";\n      font-size: 16px;\n      top: 50%;\n      transform: translate(-50%, -50%);\n    }\n  }\n\n  &.day-of-week-disabled {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.today {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.type-lastMonth,\n  &.type-nextMonth {\n    visibility: hidden;\n  }\n"], ["\n  background-color: ", ";\n  color: ", ";\n  padding: ", ";\n  ", "\n\n  &.valid {\n    cursor: pointer;\n  }\n\n  &.no-checkin {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 50%;\n      position: absolute;\n      right: 0;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.no-checkout {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 0;\n      position: absolute;\n      right: 50%;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.invalid {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.disabled {\n    background-color: ", ";\n    color: ", ";\n    position: relative;\n\n    &:after {\n      content: '\\\\00d7';\n      left: 50%;\n      position: absolute;\n      color: ", ";\n      font-size: 16px;\n      top: 50%;\n      transform: translate(-50%, -50%);\n    }\n  }\n\n  &.day-of-week-disabled {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.today {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.type-lastMonth,\n  &.type-nextMonth {\n    visibility: hidden;\n  }\n"])), function (props) {
+var DayWrapper = styled__default['default'].td.attrs(function (_a) {
+    var className = _a.className;
+    return ({
+        className: (className || '') + " day"
+    });
+})(templateObject_1$4 || (templateObject_1$4 = __makeTemplateObject(["\n  background-color: ", ";\n  color: ", ";\n  padding: ", ";\n  ", "\n\n  &.valid {\n    cursor: pointer;\n  }\n\n  &.no-checkin {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 50%;\n      position: absolute;\n      right: 0;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.no-checkout {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 0;\n      position: absolute;\n      right: 50%;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.invalid {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.disabled {\n    background-color: ", ";\n    color: ", ";\n    position: relative;\n\n    &:after {\n      content: '\\00d7';\n      left: 50%;\n      position: absolute;\n      color: ", ";\n      font-size: 16px;\n      top: 50%;\n      transform: translate(-50%, -50%);\n    }\n  }\n\n  &.day-of-week-disabled {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.today {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.type-lastMonth,\n  &.type-nextMonth {\n    visibility: hidden;\n  }\n"], ["\n  background-color: ", ";\n  color: ", ";\n  padding: ", ";\n  ", "\n\n  &.valid {\n    cursor: pointer;\n  }\n\n  &.no-checkin {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 50%;\n      position: absolute;\n      right: 0;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.no-checkout {\n    color: ", ";\n    position: relative;\n\n    &:after {\n      background-color: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 0;\n      position: absolute;\n      right: 50%;\n      top: 0;\n      z-index: -1;\n    }\n  }\n\n  &.invalid {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.disabled {\n    background-color: ", ";\n    color: ", ";\n    position: relative;\n\n    &:after {\n      content: '\\\\00d7';\n      left: 50%;\n      position: absolute;\n      color: ", ";\n      font-size: 16px;\n      top: 50%;\n      transform: translate(-50%, -50%);\n    }\n  }\n\n  &.day-of-week-disabled {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.today {\n    background-color: ", ";\n    color: ", ";\n  }\n\n  &.type-lastMonth,\n  &.type-nextMonth {\n    visibility: hidden;\n  }\n"])), function (props) {
     return props.selected
         ? props.theme.days.selected.backgroundColor.base
         : props.hover
@@ -416,7 +422,7 @@ var Day = function (props) {
             setDayHover(false);
             onSelectRange && onSelectRange(_start, _end);
         }
-    }, [start, end]);
+    }, [start, end, setStart, setEnd, onDayClick, date, setDayHover, onSelectRange]);
     var handleDayHover = React.useCallback(function (day) {
         if (!ref) {
             return;
@@ -425,7 +431,7 @@ var Day = function (props) {
             setDayHover(false);
         }
         setDayHover(__assign(__assign({}, day), { ref: ref }));
-    }, [start, end, ref]);
+    }, [start, end, setDayHover]);
     return (jsxRuntime.jsx(DayWrapper, __assign({ selected: (start && dateFns.isSameDay(start, date)) || (end && dateFns.isSameDay(end, date)), hover: isHover, className: classes, onClick: function () { return handleDayClick(props, isNoCheckIn, isNoCheckOut); }, onMouseEnter: function () {
             return isValid ? handleDayHover(props) : null;
         }, ref: ref }, { children: date.getDate() }), void 0));
@@ -502,7 +508,7 @@ var useIsValidDate = function () {
             }
         }
         return true;
-    }, [startDate, endDate, start, end]);
+    }, [startDate, endDate, start, end, maxDays, minDays, selectForward, disabledDates.length, getClosest]);
 };
 var useDayProperties = function () {
     var _a = React.useContext(OptionCtx), startDate = _a.startDate, disabledDates = _a.disabledDates, selectForward = _a.selectForward, minDays = _a.minDays, enableCheckout = _a.enableCheckout, disabledDaysOfWeek = _a.disabledDaysOfWeek, noCheckInDates = _a.noCheckInDates, noCheckOutDates = _a.noCheckOutDates;
@@ -511,7 +517,7 @@ var useDayProperties = function () {
     var getClosest = useClosest();
     return React.useCallback(function (date, type) {
         var isToday = dateFns.differenceInCalendarDays(date, new Date()) === 0;
-        var isStartDate = dateFns.isSameDay(date, startDate);
+        var isStartDate = startDate ? dateFns.isSameDay(date, startDate) : false;
         var isValid = isValidDate(date);
         var isDayBeforeDisabledDate = false;
         var isDisabled = false;
@@ -603,16 +609,7 @@ var useDayProperties = function () {
             isNoCheckOut: isNoCheckOut,
             isFirstDisabledDate: consecutiveDisableDates === 1,
         };
-    }, [
-        getClosest,
-        isValidDate,
-        startDate,
-        disabledDates,
-        selectForward,
-        minDays,
-        enableCheckout,
-        t,
-    ]);
+    }, [startDate, isValidDate, disabledDates, disabledDaysOfWeek, noCheckInDates, noCheckOutDates, getClosest, selectForward, minDays, enableCheckout, t]);
 };
 var useDays = function (month) {
     var _a;
@@ -664,7 +661,7 @@ var Month = function (_a) {
     }, [locale]);
     var getMonthName = React.useCallback(function (date) {
         return date ? "" + dateFns.format(date, 'LLLL yyyy', { locale: locale }) : '';
-    }, [dateFns.format, locale]);
+    }, [locale]);
     var isMonthOutOfRange = React.useCallback(function (month) {
         var isSameAsPrevious = undefined === previousMonth || !dateFns.isSameMonth(previousMonth, month);
         var isSameAsNext = undefined === nextMonth || !dateFns.isSameMonth(nextMonth, month);
@@ -675,7 +672,7 @@ var Month = function (_a) {
                 new Date(month.getFullYear(), month.getMonth(), 1) > endDate) ||
             !isSameAsPrevious ||
             !isSameAsNext);
-    }, [startDate, endDate, previousMonth, nextMonth, date]);
+    }, [startDate, endDate, previousMonth, nextMonth]);
     var showPrevious = moveBothMonths && (undefined !== previousMonth || undefined !== nextMonth)
         ? first && !isMonthOutOfRange(dateFns.subMonths(date, 1))
         : !isMonthOutOfRange(dateFns.subMonths(date, 1));
@@ -775,7 +772,7 @@ var TopBar = function (_a) {
     return (jsxRuntime.jsxs(Wrapper$1, { children: [jsxRuntime.jsxs(Text, { children: [start && (jsxRuntime.jsxs(Info, { children: [jsxRuntime.jsxs(InfoLabel, { children: [t('selected'), "\u00A0"] }, void 0), jsxRuntime.jsx(InfoText, __assign({ className: "start-day" }, { children: dateFns.format(start, format, { locale: locale }) }), void 0), jsxRuntime.jsx(InfoText, { children: " - " }, void 0), jsxRuntime.jsx(InfoText, __assign({ className: "end-day" }, { children: end ? dateFns.format(end, format) : '...' }), void 0), end && (jsxRuntime.jsxs(InfoText, __assign({ className: "selected-days" }, { children: ["(", t('night', { count: nightCount }), ")"] }), void 0))] }, void 0)), jsxRuntime.jsx(TopBarFeedback, {}, void 0)] }, void 0), jsxRuntime.jsx(CloseButton, __assign({ onClick: handleClose }, { children: t('button') }), void 0)] }, void 0));
 };
 
-var Wrapper = styled__default['default'].section(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  background-color: ", ";\n  border-radius: ", "5px;\n  box-shadow: 8px 8px 40px 5px rgba(0, 0, 0, 0.08);\n  box-sizing: border-box;\n  color: ", ";\n  display: none;\n  font-family: ", ";\n  font-size: ", ";\n  height: auto;\n  left: 0;\n  line-height: ", ";\n  overflow: hidden;\n  position: absolute;\n  transition: transform ", " ease;\n  transform: scaleY(1);\n  transform-origin: 50% 0;\n  width: ", ";\n  z-index: 1;\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  &.closed {\n    transform: scaleY(0);\n  }\n\n  &.rendered {\n    display: block;\n  }\n"], ["\n  background-color: ", ";\n  border-radius: ", "5px;\n  box-shadow: 8px 8px 40px 5px rgba(0, 0, 0, 0.08);\n  box-sizing: border-box;\n  color: ", ";\n  display: none;\n  font-family: ", ";\n  font-size: ", ";\n  height: auto;\n  left: 0;\n  line-height: ", ";\n  overflow: hidden;\n  position: absolute;\n  transition: transform ", " ease;\n  transform: scaleY(1);\n  transform-origin: 50% 0;\n  width: ", ";\n  z-index: 1;\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  &.closed {\n    transform: scaleY(0);\n  }\n\n  &.rendered {\n    display: block;\n  }\n"])), function (props) { return props.theme.calendar.backgroundColor; }, function (props) { return props.theme.calendar.borderRadius; }, function (props) { return props.theme.calendar.color; }, function (props) { return props.theme.fontFamily; }, function (props) { return props.theme.calendar.fontSize; }, function (props) { return props.theme.calendar.lineHeight; }, function (props) { return props.theme.animationSpeed; }, function (props) { return props.theme.calendar.widths.sm; }, device.mobileL, function (props) { return props.theme.calendar.widths.md; }, device.tablet, function (props) { return props.theme.calendar.widths.lg; });
+var Wrapper = styled__default['default'].section(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  background-color: ", ";\n  border: ", ";\n  border-radius: ", ";\n  box-shadow: ", ";\n  box-sizing: border-box;\n  color: ", ";\n  display: none;\n  font-family: ", ";\n  font-size: ", ";\n  height: auto;\n  left: 0;\n  line-height: ", ";\n  overflow: hidden;\n  position: absolute;\n  transition: transform ", " ease;\n  transform: scaleY(1);\n  transform-origin: 50% 0;\n  width: ", ";\n  z-index: 1;\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  &.closed {\n    transform: scaleY(0);\n  }\n\n  &.rendered {\n    display: block;\n  }\n"], ["\n  background-color: ", ";\n  border: ", ";\n  border-radius: ", ";\n  box-shadow: ", ";\n  box-sizing: border-box;\n  color: ", ";\n  display: none;\n  font-family: ", ";\n  font-size: ", ";\n  height: auto;\n  left: 0;\n  line-height: ", ";\n  overflow: hidden;\n  position: absolute;\n  transition: transform ", " ease;\n  transform: scaleY(1);\n  transform-origin: 50% 0;\n  width: ", ";\n  z-index: 1;\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  &.closed {\n    transform: scaleY(0);\n  }\n\n  &.rendered {\n    display: block;\n  }\n"])), function (props) { return props.theme.calendar.backgroundColor; }, function (props) { return props.theme.calendar.border; }, function (props) { return props.theme.calendar.borderRadius; }, function (props) { return props.theme.calendar.boxShadow; }, function (props) { return props.theme.calendar.color; }, function (props) { return props.theme.fontFamily; }, function (props) { return props.theme.calendar.fontSize; }, function (props) { return props.theme.calendar.lineHeight; }, function (props) { return props.theme.animationSpeed; }, function (props) { return props.theme.calendar.widths.sm; }, device.mobileL, function (props) { return props.theme.calendar.widths.md; }, device.tablet, function (props) { return props.theme.calendar.widths.lg; });
 var DatePickerInner = styled__default['default'].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  overflow: hidden;\n  padding: ", ";\n"], ["\n  overflow: hidden;\n  padding: ", ";\n"])), function (props) { return props.theme.calendar.padding; });
 var Months = styled__default['default'].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @media only screen and ", " {\n    overflow: visible;\n    position: relative;\n\n    &:before {\n      background: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 50%;\n      position: absolute;\n      top: 0;\n      width: ", ";\n    }\n    &:after {\n      clear: both;\n      content: '';\n      display: block;\n    }\n  }\n"], ["\n  @media only screen and ", " {\n    overflow: visible;\n    position: relative;\n\n    &:before {\n      background: ", ";\n      bottom: 0;\n      content: '';\n      display: block;\n      left: 50%;\n      position: absolute;\n      top: 0;\n      width: ", ";\n    }\n    &:after {\n      clear: both;\n      content: '';\n      display: block;\n    }\n  }\n"])), device.mobileL, function (props) { return props.theme.months.spacer.color; }, function (props) { return props.theme.months.spacer.width; });
 var templateObject_1, templateObject_2, templateObject_3;
@@ -785,21 +782,23 @@ var Calendar = function (_a) {
     var responsive = useBreakpointsUp(breakpoints);
     var laptop = responsive.laptop;
     var _b = React.useContext(OptionCtx), showTopBar = _b.showTopBar, startDate = _b.startDate, endDate = _b.endDate, moveBothMonths = _b.moveBothMonths;
-    var _c = React.useState(startDate), firstMonth = _c[0], setFirstMonth = _c[1];
-    var _d = React.useState(dateFns.addMonths(startDate, 1)), secondMonth = _d[0], setSecondMonth = _d[1];
-    var _e = React.useState(false), isRender = _e[0], setIsRender = _e[1];
+    var _c = React.useContext(CalendarCtx), start = _c.start, end = _c.end;
+    var _d = React.useState(start ? start : startDate ? startDate : new Date()), firstMonth = _d[0], setFirstMonth = _d[1];
+    var _e = React.useState(end ? end : start ? dateFns.addMonths(start, 1) : dateFns.addMonths(startDate ? startDate : new Date(), 1)), secondMonth = _e[0], setSecondMonth = _e[1];
+    var _f = React.useState(false), isRender = _f[0], setIsRender = _f[1];
     React.useEffect(function () {
-        var defaultTime = new Date();
-        if (startDate && dateFns.differenceInCalendarMonths(defaultTime, startDate) < 0) {
-            defaultTime = new Date(startDate.getTime());
+        var defaultStart = start ? start : new Date();
+        var defaultEnd = end ? end : new Date();
+        if (startDate && dateFns.differenceInCalendarMonths(defaultStart, startDate) < 0) {
+            defaultStart = new Date(startDate.getTime());
         }
         if (endDate &&
-            dateFns.differenceInCalendarMonths(dateFns.addMonths(defaultTime, 1), endDate) > 0) {
-            defaultTime = new Date(dateFns.subMonths(endDate, 1));
+            dateFns.differenceInCalendarMonths(dateFns.addMonths(defaultEnd, 1), endDate) > 0) {
+            defaultEnd = new Date(dateFns.subMonths(endDate, 1));
         }
-        setFirstMonth(defaultTime);
-        setSecondMonth(dateFns.addMonths(defaultTime, 1));
-    }, [startDate, endDate]);
+        setFirstMonth(defaultStart);
+        setSecondMonth(dateFns.addMonths(defaultEnd, 1));
+    }, [startDate, start, endDate, end]);
     React.useEffect(function () {
         if (dateFns.startOfMonth(firstMonth) >= dateFns.startOfMonth(secondMonth)) {
             setSecondMonth(dateFns.addMonths(firstMonth, 1));
@@ -852,14 +851,16 @@ var en = {
 };
 
 // noinspection JSIgnoredPromiseFromCall
-i18n__default['default'].use(reactI18next.initReactI18next).init({
-    defaultNS: 'hoteldatepicker',
-    lng: 'en',
-    resources: {},
-    interpolation: {
-        escapeValue: true,
-    },
-});
+if (!i18n__default['default'].isInitialized) {
+    i18n__default['default'].use(reactI18next.initReactI18next).init({
+        defaultNS: 'hoteldatepicker',
+        lng: 'en',
+        resources: {},
+        interpolation: {
+            escapeValue: true,
+        },
+    });
+}
 
 var DefaultInput = function (_a) {
     var value = _a.value, onClick = _a.onClick;
@@ -919,7 +920,7 @@ var HotelDatepicker = React.forwardRef(function (props, ref) {
                 onSelectRange && onSelectRange(false, false);
             },
         };
-    }, []);
+    }, [onSelectRange]);
     React.useEffect(function () {
         i18n__default['default'].languages = [localeCode];
         i18n__default['default'].addResourceBundle(localeCode, 'hoteldatepicker', i18n);

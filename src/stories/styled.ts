@@ -5,6 +5,7 @@ const theme: Required<DefaultTheme> = {
   animationSpeed: '0.2s',
   calendar: {
     backgroundColor: '#fff',
+    border: '0 none',
     borderRadius: '5px',
     boxShadow: '8px 8px 40px 5px rgba(0, 0, 0, 0.08)',
     color: '#484c55',

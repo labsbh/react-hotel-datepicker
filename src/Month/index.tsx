@@ -35,7 +35,7 @@ const Month = ({
   const getMonthName = useCallback(
     (date: Date) =>
       date ? `${formatDate(date, 'LLLL yyyy', { locale })}` : '',
-    [formatDate, locale],
+    [locale],
   );
 
   const isMonthOutOfRange = useCallback(
@@ -54,7 +54,7 @@ const Month = ({
         !isSameAsNext
       );
     },
-    [startDate, endDate, previousMonth, nextMonth, date],
+    [startDate, endDate, previousMonth, nextMonth],
   );
 
   const showPrevious =

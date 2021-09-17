@@ -27,7 +27,7 @@ const useOutsideListener = (
     document.addEventListener('mousedown', handleClickOutside);
     return (): void =>
       document.removeEventListener('mousedown', handleClickOutside);
-  }, [ref, onClickOutside]);
+  }, [ref, onClickOutside, preventContainerClose]);
 };
 
 const useCurrentWidth = (): number => {

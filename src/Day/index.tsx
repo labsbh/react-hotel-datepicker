@@ -96,7 +96,7 @@ const Day = (props: DayProps): ReactElement => {
         onSelectRange && onSelectRange(_start, _end);
       }
     },
-    [start, end],
+    [start, end, setStart, setEnd, onDayClick, date, setDayHover, onSelectRange],
   );
 
   const handleDayHover = useCallback(
@@ -109,7 +109,7 @@ const Day = (props: DayProps): ReactElement => {
       }
       setDayHover({ ...day, ref });
     },
-    [start, end, ref],
+    [start, end, setDayHover],
   );
 
   return (

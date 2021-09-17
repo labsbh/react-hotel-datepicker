@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   background-color: ${(props): string => props.theme.calendar.backgroundColor};
-  border-radius: ${(props): string => props.theme.calendar.borderRadius}5px;
-  box-shadow: 8px 8px 40px 5px rgba(0, 0, 0, 0.08);
+  border: ${(props): string => props.theme.calendar.border};
+  border-radius: ${(props): string => props.theme.calendar.borderRadius};
+  box-shadow: ${(props): string => props.theme.calendar.boxShadow};
   box-sizing: border-box;
   color: ${(props): string => props.theme.calendar.color};
   display: none;
