@@ -2,11 +2,6 @@ import { Locale } from 'date-fns';
 import { ComponentType, ReactElement, RefObject } from 'react';
 import { enTranslations as translations } from './translations';
 
-type DeepRequired<T> = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    [K in keyof T]: Required<DeepRequired<T[K]>>;
-};
-
 export interface HotelDatePickerTheme {
     fontFamily?: string;
     animationSpeed?: string;

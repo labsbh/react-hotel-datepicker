@@ -1,5 +1,6 @@
 /// <reference types="react-scripts" />
-import { DeepRequired, HotelDatePickerTheme } from 'typings';
+import { HotelDatePickerTheme } from 'typings';
+import { DeepRequired } from 'ts-essentials';
 
 /**
  * Default CSS definition for typescript,
@@ -22,5 +23,6 @@ declare module '*.svg' {
 declare module 'styled-components' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface DefaultTheme
-        extends DeepRequired<Required<HotelDatePickerTheme>> {}
+        extends DeepRequired<Required<HotelDatePickerTheme>> {
+    }
 }
