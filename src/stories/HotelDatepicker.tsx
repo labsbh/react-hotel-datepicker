@@ -10,12 +10,12 @@ import {
 import _ from 'lodash';
 import * as React from 'react';
 import { forwardRef, ReactElement, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { I18nextProvider } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import Calendar from '../Calendar';
 import { useOutsideListener } from '../hooks';
 import { CalendarCtx, defaultOptions, OptionCtx } from '../Store';
-import { enTranslations as en, i18nConfig } from '../translations';
+import { enTranslations } from '../translations';
 import {
     CalendarContext,
     DayHover,
@@ -39,7 +39,7 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             onOpenDatepicker: undefined,
             disabledDatesBetweenChecks: true,
             theme: defaultTheme,
-            i18n: en,
+            i18n: enTranslations,
             inputElement: DefaultInput,
         };
         const propsWithDefault: HotelDatepickerProps = _.defaultsDeep({ ...props }, defaults);
@@ -95,7 +95,9 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             locale,
         };
 
-        const localeCode = locale.code || 'en';
+        const {i18n: i18next} = useTranslation();
+
+        const localeCode = i18next.language || 'en';
 
         const { preventContainerClose, format, showTopBar, onSelectRange } = optionContext;
 
@@ -138,11 +140,8 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
         );
 
         useEffect(() => {
-            i18nConfig.languages = [localeCode];
-            i18nConfig.addResourceBundle(localeCode, 'hoteldatepicker', i18n);
-            // noinspection JSIgnoredPromiseFromCall
-            i18nConfig.changeLanguage(localeCode);
-        }, [localeCode, i18n]);
+            i18next.addResourceBundle(localeCode, 'hoteldatepicker', i18n);
+        }, [localeCode, i18next, i18n]);
 
         const handleInputClick = useCallback(() => {
             setIsOpen(true);
@@ -152,7 +151,6 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
         let Input = inputElement;
 
         return (
-            <I18nextProvider i18n={i18nConfig} defaultNS="hoteldatepicker">
                 <ThemeProvider theme={mergedTheme}>
                     <OptionCtx.Provider value={optionContext}>
                         <CalendarCtx.Provider value={calendarContext}>
@@ -172,7 +170,6 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
                         </CalendarCtx.Provider>
                     </OptionCtx.Provider>
                 </ThemeProvider>
-            </I18nextProvider>
         );
     },
 );
