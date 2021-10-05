@@ -839,7 +839,7 @@ var infoMore = "Please select a date range of at least 1 night";
 var infoMore_plural = "Please select a date range of at least {{count}} nights";
 var infoRange = "Please select a date range between {{min}} and {{max}} nights";
 var infoDefault = "Please select a date range";
-var en = {
+var enTranslations = {
 	selected: selected,
 	night: night,
 	night_plural: night_plural,
@@ -868,7 +868,7 @@ var DefaultInput = function (_a) {
 };
 // noinspection JSIgnoredPromiseFromCall
 var HotelDatepicker = React.forwardRef(function (props, ref) {
-    var defaults = __assign(__assign({}, defaultOptions), { minNights: 1, maxNights: 0, onOpenDatepicker: undefined, disabledDatesBetweenChecks: true, theme: theme, i18n: en, inputElement: DefaultInput });
+    var defaults = __assign(__assign({}, defaultOptions), { minNights: 1, maxNights: 0, onOpenDatepicker: undefined, disabledDatesBetweenChecks: true, theme: theme, i18n: enTranslations, inputElement: DefaultInput });
     var propsWithDefault = ___default['default'].defaultsDeep(__assign({}, props), defaults);
     var inputElement = propsWithDefault.inputElement, onOpenDatepicker = propsWithDefault.onOpenDatepicker, minNights = propsWithDefault.minNights, maxNights = propsWithDefault.maxNights, theme$1 = propsWithDefault.theme, defaultValue = propsWithDefault.defaultValue, disabledDatesBetweenChecks = propsWithDefault.disabledDatesBetweenChecks, disabledDates = propsWithDefault.disabledDates, i18n = propsWithDefault.i18n, locale = propsWithDefault.locale, contextProps = __rest(propsWithDefault, ["inputElement", "onOpenDatepicker", "minNights", "maxNights", "theme", "defaultValue", "disabledDatesBetweenChecks", "disabledDates", "i18n", "locale"]);
     var _a = React.useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.start) || false), start = _a[0], setStart = _a[1];
@@ -893,7 +893,8 @@ var HotelDatepicker = React.forwardRef(function (props, ref) {
         });
     }
     var optionContext = __assign(__assign({}, contextProps), { disabledDates: disabledDates.sort(function (a, b) { return a.getTime() - b.getTime(); }), minDays: minDays, maxDays: maxDays, locale: locale });
-    var localeCode = locale.code || 'en';
+    var i18next = reactI18next.useTranslation().i18n;
+    var localeCode = i18next.language || 'en';
     var preventContainerClose = optionContext.preventContainerClose, format = optionContext.format, showTopBar = optionContext.showTopBar, onSelectRange = optionContext.onSelectRange;
     var calendarContext = {
         start: start,
@@ -922,23 +923,20 @@ var HotelDatepicker = React.forwardRef(function (props, ref) {
         };
     }, [onSelectRange]);
     React.useEffect(function () {
-        i18n__default['default'].languages = [localeCode];
-        i18n__default['default'].addResourceBundle(localeCode, 'hoteldatepicker', i18n);
-        // noinspection JSIgnoredPromiseFromCall
-        i18n__default['default'].changeLanguage(localeCode);
-    }, [localeCode, i18n]);
+        i18next.addResourceBundle(localeCode, 'hoteldatepicker', i18n);
+    }, [localeCode, i18next, i18n]);
     var handleInputClick = React.useCallback(function () {
         setIsOpen(true);
         onOpenDatepicker && onOpenDatepicker();
     }, [onOpenDatepicker]);
     var Input = inputElement;
-    return (jsxRuntime.jsx(reactI18next.I18nextProvider, __assign({ i18n: i18n__default['default'], defaultNS: "hoteldatepicker" }, { children: jsxRuntime.jsx(styled.ThemeProvider, __assign({ theme: mergedTheme }, { children: jsxRuntime.jsx(OptionCtx.Provider, __assign({ value: optionContext }, { children: jsxRuntime.jsx(CalendarCtx.Provider, __assign({ value: calendarContext }, { children: jsxRuntime.jsxs(Wrapper$2, __assign({ ref: wrapperRef }, { children: [jsxRuntime.jsx(Input, { onClick: handleInputClick, value: start && end
-                                    ? dateFns.format(start, format, {
-                                        locale: locale,
-                                    }) + " - " + dateFns.format(end, format, {
-                                        locale: locale,
-                                    })
-                                    : '' }, void 0), jsxRuntime.jsx(Calendar, { handleClose: function () { return setIsOpen(false); }, isOpen: isOpen }, void 0)] }), void 0) }), void 0) }), void 0) }), void 0) }), void 0));
+    return (jsxRuntime.jsx(styled.ThemeProvider, __assign({ theme: mergedTheme }, { children: jsxRuntime.jsx(OptionCtx.Provider, __assign({ value: optionContext }, { children: jsxRuntime.jsx(CalendarCtx.Provider, __assign({ value: calendarContext }, { children: jsxRuntime.jsxs(Wrapper$2, __assign({ ref: wrapperRef }, { children: [jsxRuntime.jsx(Input, { onClick: handleInputClick, value: start && end
+                                ? dateFns.format(start, format, {
+                                    locale: locale,
+                                }) + " - " + dateFns.format(end, format, {
+                                    locale: locale,
+                                })
+                                : '' }, void 0), jsxRuntime.jsx(Calendar, { handleClose: function () { return setIsOpen(false); }, isOpen: isOpen }, void 0)] }), void 0) }), void 0) }), void 0) }), void 0));
 });
 
 exports.HotelDatepicker = HotelDatepicker;
