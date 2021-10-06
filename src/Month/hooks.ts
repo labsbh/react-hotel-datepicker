@@ -9,7 +9,6 @@ import {
   subDays,
 } from 'date-fns';
 import { useCallback, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { CalendarCtx, OptionCtx } from '../Store';
 import { DayMonthType, DayOfMonth } from '../typings';
 
@@ -121,7 +120,6 @@ const useDayProperties = (): ((
     noCheckInDates,
     noCheckOutDates,
   } = useContext(OptionCtx);
-  const { t } = useTranslation('hoteldatepicker');
   const isValidDate = useIsValidDate();
   const getClosest = useClosest();
 
@@ -217,17 +215,7 @@ const useDayProperties = (): ((
         }
       }
 
-      let title = '';
-      if (isNoCheckIn) {
-        title = t('hoteldatepicker:checkin-disabled');
-      }
-
-      if (isNoCheckOut) {
-        if (title) {
-          title += '. ';
-        }
-        title = t('hoteldatepicker:checkout-disabled');
-      }
+      const title = '';
 
       return {
         date,
@@ -245,7 +233,7 @@ const useDayProperties = (): ((
         isFirstDisabledDate: consecutiveDisableDates === 1,
       };
     },
-    [startDate, isValidDate, disabledDates, disabledDaysOfWeek, noCheckInDates, noCheckOutDates, getClosest, selectForward, minDays, enableCheckout, t],
+    [startDate, isValidDate, disabledDates, disabledDaysOfWeek, noCheckInDates, noCheckOutDates, getClosest, selectForward, minDays, enableCheckout],
   );
 };
 

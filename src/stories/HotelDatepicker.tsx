@@ -14,6 +14,7 @@ import { DefaultTheme, ThemeProvider } from 'styled-components';
 import Calendar from '../Calendar';
 import { useOutsideListener } from '../hooks';
 import { CalendarCtx, defaultOptions, OptionCtx } from '../Store';
+import { enTranslations } from '../translations';
 import {
     CalendarContext,
     DayHover,
@@ -37,6 +38,7 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             onOpenDatepicker: undefined,
             disabledDatesBetweenChecks: true,
             theme: defaultTheme,
+            i18n: enTranslations,
             inputElement: DefaultInput,
         };
         const propsWithDefault: HotelDatepickerProps = _.defaultsDeep({ ...props }, defaults);
@@ -139,25 +141,25 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
         let Input = inputElement;
 
         return (
-                <ThemeProvider theme={mergedTheme}>
-                    <OptionCtx.Provider value={optionContext}>
-                        <CalendarCtx.Provider value={calendarContext}>
-                            <Wrapper ref={wrapperRef}>
-                                <Input onClick={handleInputClick} value={start && end
-                                    ? `${dateFormat(start, format, {
-                                        locale: locale,
-                                    })} - ${dateFormat(end, format, {
-                                        locale: locale,
-                                    })}`
-                                    : ''} />
-                                <Calendar
-                                    handleClose={() => setIsOpen(false)}
-                                    isOpen={isOpen}
-                                />
-                            </Wrapper>
-                        </CalendarCtx.Provider>
-                    </OptionCtx.Provider>
-                </ThemeProvider>
+            <ThemeProvider theme={mergedTheme}>
+                <OptionCtx.Provider value={optionContext}>
+                    <CalendarCtx.Provider value={calendarContext}>
+                        <Wrapper ref={wrapperRef}>
+                            <Input onClick={handleInputClick} value={start && end
+                                ? `${dateFormat(start, format, {
+                                    locale: locale,
+                                })} - ${dateFormat(end, format, {
+                                    locale: locale,
+                                })}`
+                                : ''} />
+                            <Calendar
+                                handleClose={() => setIsOpen(false)}
+                                isOpen={isOpen}
+                            />
+                        </Wrapper>
+                    </CalendarCtx.Provider>
+                </OptionCtx.Provider>
+            </ThemeProvider>
         );
     },
 );

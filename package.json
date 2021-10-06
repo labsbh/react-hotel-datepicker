@@ -33,11 +33,9 @@
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.23.0",
-    "i18next": "^20.5.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-i18next": "^11.11.4",
     "styled-components": "^5.3.1"
   },
   "eslintConfig": {
@@ -85,11 +83,9 @@
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.23.0",
-    "i18next": "^20.5.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-i18next": "^11.11.4",
     "rollup": "^2.56.3",
     "rollup-plugin-dts": "^4.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",

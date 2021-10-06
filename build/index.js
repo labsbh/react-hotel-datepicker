@@ -9,7 +9,6 @@ var React = require('react');
 var styled = require('styled-components');
 var clsx = require('clsx');
 var locale = require('date-fns/locale');
-var reactI18next = require('react-i18next');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -143,6 +142,25 @@ var useBreakpointsUp = function (breakpoints) {
     }, {});
 };
 
+var selected = "Your stay:";
+var night = "{{count}} Night";
+var night_plural = "{{count}} Nights";
+var button = "Close";
+var infoMore = "Please select a date range of at least 1 night";
+var infoMore_plural = "Please select a date range of at least {{count}} nights";
+var infoRange = "Please select a date range between {{min}} and {{max}} nights";
+var infoDefault = "Please select a date range";
+var enTranslations = {
+	selected: selected,
+	night: night,
+	night_plural: night_plural,
+	button: button,
+	infoMore: infoMore,
+	infoMore_plural: infoMore_plural,
+	infoRange: infoRange,
+	infoDefault: infoDefault
+};
+
 /* eslint-disable @typescript-eslint/no-empty-function */
 var defaultOptions = {
     locale: locale.enUS,
@@ -164,14 +182,18 @@ var defaultOptions = {
     moveBothMonths: true,
     onDayClick: undefined,
     onSelectRange: undefined,
+    i18n: enTranslations,
 };
 var defaultCalendar = {
     start: false,
     end: false,
     dayHover: false,
-    setStart: function (_value) { },
-    setEnd: function (_value) { },
-    setDayHover: function (_value) { },
+    setStart: function (_value) {
+    },
+    setEnd: function (_value) {
+    },
+    setDayHover: function (_value) {
+    },
 };
 var OptionCtx = React.createContext(defaultOptions);
 var CalendarCtx = React.createContext(defaultCalendar);
@@ -510,7 +532,6 @@ var useIsValidDate = function () {
 };
 var useDayProperties = function () {
     var _a = React.useContext(OptionCtx), startDate = _a.startDate, disabledDates = _a.disabledDates, selectForward = _a.selectForward, minDays = _a.minDays, enableCheckout = _a.enableCheckout, disabledDaysOfWeek = _a.disabledDaysOfWeek, noCheckInDates = _a.noCheckInDates, noCheckOutDates = _a.noCheckOutDates;
-    var t = reactI18next.useTranslation('hoteldatepicker').t;
     var isValidDate = useIsValidDate();
     var getClosest = useClosest();
     return React.useCallback(function (date, type) {
@@ -583,15 +604,6 @@ var useDayProperties = function () {
             }
         }
         var title = '';
-        if (isNoCheckIn) {
-            title = t('hoteldatepicker:checkin-disabled');
-        }
-        if (isNoCheckOut) {
-            if (title) {
-                title += '. ';
-            }
-            title = t('hoteldatepicker:checkout-disabled');
-        }
         return {
             date: date,
             title: title,
@@ -607,7 +619,7 @@ var useDayProperties = function () {
             isNoCheckOut: isNoCheckOut,
             isFirstDisabledDate: consecutiveDisableDates === 1,
         };
-    }, [startDate, isValidDate, disabledDates, disabledDaysOfWeek, noCheckInDates, noCheckOutDates, getClosest, selectForward, minDays, enableCheckout, t]);
+    }, [startDate, isValidDate, disabledDates, disabledDaysOfWeek, noCheckInDates, noCheckOutDates, getClosest, selectForward, minDays, enableCheckout]);
 };
 var useDays = function (month) {
     var _a;
@@ -695,9 +707,8 @@ var TooltipWrapper = styled__default['default'].div(templateObject_1$2 || (templ
 var templateObject_1$2;
 
 var Tooltip = function () {
-    var t = reactI18next.useTranslation('hoteldatepicker').t;
-    var hoveringTooltipOption = React.useContext(OptionCtx).hoveringTooltip;
-    var _a = React.useContext(CalendarCtx), start = _a.start, end = _a.end, dayHover = _a.dayHover;
+    var _a = React.useContext(OptionCtx), hoveringTooltipOption = _a.hoveringTooltip, i18n = _a.i18n;
+    var _b = React.useContext(CalendarCtx), start = _b.start, end = _b.end, dayHover = _b.dayHover;
     var hoveringTooltip = React.useState(hoveringTooltipOption &&
         !((typeof window !== 'undefined' && 'ontouchstart' in window) ||
             typeof navigator === 'undefined' ||
@@ -715,18 +726,19 @@ var Tooltip = function () {
     var top = 0;
     var left = 0;
     if (dayHover.ref.current) {
-        var _b = dayHover.ref.current, offsetLeft = _b.offsetLeft, offsetTop = _b.offsetTop, offsetWidth = _b.offsetWidth;
+        var _c = dayHover.ref.current, offsetLeft = _c.offsetLeft, offsetTop = _c.offsetTop, offsetWidth = _c.offsetWidth;
         var parent_1 = dayHover.ref.current.closest('table');
-        var _c = parent_1 || {
+        var _d = parent_1 || {
             offsetLeft: 0,
             offsetTop: 0,
-        }, parentLeft = _c.offsetLeft, parentTop = _c.offsetTop;
+        }, parentLeft = _d.offsetLeft, parentTop = _d.offsetTop;
         top = parentTop + offsetTop;
         left = parentLeft + offsetLeft + offsetWidth / 2;
     }
     return (jsxRuntime.jsx(TooltipWrapper, __assign({ style: { left: left, top: top } }, { children: typeof hoveringTooltipOption === 'function'
-            ? hoveringTooltipOption(nightCount, start, dayHover.date)
-            : t('hoteldatepicker:night', { count: nightCount }) }), void 0));
+            ? hoveringTooltipOption(nightCount, start, dayHover)
+            :
+                jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: (nightCount > 1 ? i18n.night_plural : i18n.night).replace('{{count}}', nightCount.toString()) } }, void 0) }), void 0));
 };
 
 var Wrapper$1 = styled__default['default'].div(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n  align-items: start;\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px;\n  position: relative;\n"], ["\n  align-items: start;\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px;\n  position: relative;\n"])));
@@ -742,29 +754,28 @@ var CloseButton = styled__default['default'].button(templateObject_6 || (templat
 var templateObject_1$1, templateObject_2$1, templateObject_3$1, templateObject_4, templateObject_5, templateObject_6;
 
 var TopBarFeedback = function () {
-    var t = reactI18next.useTranslation('hoteldatepicker').t;
-    var _a = React.useContext(OptionCtx), minDays = _a.minDays, maxDays = _a.maxDays;
+    var _a = React.useContext(OptionCtx), minDays = _a.minDays, maxDays = _a.maxDays, i18n = _a.i18n;
     var _b = React.useContext(CalendarCtx), start = _b.start, end = _b.end;
     if (start && end) {
         return null;
     }
-    var text = t('hoteldatepicker:infoDefault');
+    var text = i18n.infoDefault;
     if (minDays && maxDays) {
-        text = t('hoteldatepicker:infoRange', { min: minDays - 1, max: maxDays - 1 });
+        text = i18n.infoRange.replace('{{min}}', (minDays - 1).toString()).replace('{{max}}', (maxDays - 1).toString());
     }
     else if (minDays) {
-        text = t('hoteldatepicker:infoMore', { count: minDays - 1 });
+        var count = minDays - 1;
+        text = (count > 1 ? i18n.infoMore_plural : i18n.infoMore).replace('{{count}}', count.toString());
     }
-    return jsxRuntime.jsx("div", { children: text }, void 0);
+    return jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: text } }, void 0);
 };
 
 var TopBar = function (_a) {
     var handleClose = _a.handleClose;
-    var t = reactI18next.useTranslation('hoteldatepicker').t;
     var _b = React.useContext(CalendarCtx), start = _b.start, end = _b.end;
-    var _c = React.useContext(OptionCtx), format = _c.format, locale = _c.locale;
+    var _c = React.useContext(OptionCtx), format = _c.format, locale = _c.locale, i18n = _c.i18n;
     var nightCount = start && end ? dateFns.differenceInCalendarDays(end, start) : 0;
-    return (jsxRuntime.jsxs(Wrapper$1, { children: [jsxRuntime.jsxs(Text, { children: [start && (jsxRuntime.jsxs(Info, { children: [jsxRuntime.jsxs(InfoLabel, { children: [t('hoteldatepicker:selected'), "\u00A0"] }, void 0), jsxRuntime.jsx(InfoText, __assign({ className: "start-day" }, { children: dateFns.format(start, format, { locale: locale }) }), void 0), jsxRuntime.jsx(InfoText, { children: " - " }, void 0), jsxRuntime.jsx(InfoText, __assign({ className: "end-day" }, { children: end ? dateFns.format(end, format) : '...' }), void 0), end && (jsxRuntime.jsxs(InfoText, __assign({ className: "selected-days" }, { children: ["(", t('hoteldatepicker:night', { count: nightCount }), ")"] }), void 0))] }, void 0)), jsxRuntime.jsx(TopBarFeedback, {}, void 0)] }, void 0), jsxRuntime.jsx(CloseButton, __assign({ onClick: handleClose }, { children: t('hoteldatepicker:button') }), void 0)] }, void 0));
+    return (jsxRuntime.jsxs(Wrapper$1, { children: [jsxRuntime.jsxs(Text, { children: [start && (jsxRuntime.jsxs(Info, { children: [jsxRuntime.jsxs(InfoLabel, { children: [i18n.selected, "\u00A0"] }, void 0), jsxRuntime.jsx(InfoText, __assign({ className: "start-day" }, { children: dateFns.format(start, format, { locale: locale }) }), void 0), jsxRuntime.jsx(InfoText, { children: " - " }, void 0), jsxRuntime.jsx(InfoText, __assign({ className: "end-day" }, { children: end ? dateFns.format(end, format) : '...' }), void 0), end && (jsxRuntime.jsxs(InfoText, __assign({ className: "selected-days" }, { children: ["(", jsxRuntime.jsx("span", { dangerouslySetInnerHTML: { __html: (nightCount > 1 ? i18n.night_plural : i18n.night).replace('{{count}}', nightCount.toString()) } }, void 0), ")"] }), void 0))] }, void 0)), jsxRuntime.jsx(TopBarFeedback, {}, void 0)] }, void 0), jsxRuntime.jsx(CloseButton, __assign({ onClick: handleClose }, { children: i18n.button }), void 0)] }, void 0));
 };
 
 var Wrapper = styled__default['default'].section(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  background-color: ", ";\n  border: ", ";\n  border-radius: ", ";\n  box-shadow: ", ";\n  box-sizing: border-box;\n  color: ", ";\n  display: none;\n  font-family: ", ";\n  font-size: ", ";\n  height: auto;\n  left: 0;\n  line-height: ", ";\n  overflow: hidden;\n  position: absolute;\n  transition: transform ", " ease;\n  transform: scaleY(1);\n  transform-origin: 50% 0;\n  width: ", ";\n  z-index: 1;\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  &.closed {\n    transform: scaleY(0);\n  }\n\n  &.rendered {\n    display: block;\n  }\n"], ["\n  background-color: ", ";\n  border: ", ";\n  border-radius: ", ";\n  box-shadow: ", ";\n  box-sizing: border-box;\n  color: ", ";\n  display: none;\n  font-family: ", ";\n  font-size: ", ";\n  height: auto;\n  left: 0;\n  line-height: ", ";\n  overflow: hidden;\n  position: absolute;\n  transition: transform ", " ease;\n  transform: scaleY(1);\n  transform-origin: 50% 0;\n  width: ", ";\n  z-index: 1;\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  @media only screen and ", " {\n    width: ", ";\n  }\n\n  &.closed {\n    transform: scaleY(0);\n  }\n\n  &.rendered {\n    display: block;\n  }\n"])), function (props) { return props.theme.calendar.backgroundColor; }, function (props) { return props.theme.calendar.border; }, function (props) { return props.theme.calendar.borderRadius; }, function (props) { return props.theme.calendar.boxShadow; }, function (props) { return props.theme.calendar.color; }, function (props) { return props.theme.fontFamily; }, function (props) { return props.theme.calendar.fontSize; }, function (props) { return props.theme.calendar.lineHeight; }, function (props) { return props.theme.animationSpeed; }, function (props) { return props.theme.calendar.widths.sm; }, device.mobileL, function (props) { return props.theme.calendar.widths.md; }, device.tablet, function (props) { return props.theme.calendar.widths.lg; });
@@ -832,7 +843,7 @@ var DefaultInput = function (_a) {
 };
 // noinspection JSIgnoredPromiseFromCall
 var HotelDatepicker = React.forwardRef(function (props, ref) {
-    var defaults = __assign(__assign({}, defaultOptions), { minNights: 1, maxNights: 0, onOpenDatepicker: undefined, disabledDatesBetweenChecks: true, theme: theme, inputElement: DefaultInput });
+    var defaults = __assign(__assign({}, defaultOptions), { minNights: 1, maxNights: 0, onOpenDatepicker: undefined, disabledDatesBetweenChecks: true, theme: theme, i18n: enTranslations, inputElement: DefaultInput });
     var propsWithDefault = ___default['default'].defaultsDeep(__assign({}, props), defaults);
     var inputElement = propsWithDefault.inputElement, onOpenDatepicker = propsWithDefault.onOpenDatepicker, minNights = propsWithDefault.minNights, maxNights = propsWithDefault.maxNights, theme$1 = propsWithDefault.theme, defaultValue = propsWithDefault.defaultValue, disabledDatesBetweenChecks = propsWithDefault.disabledDatesBetweenChecks, disabledDates = propsWithDefault.disabledDates, locale = propsWithDefault.locale, contextProps = __rest(propsWithDefault, ["inputElement", "onOpenDatepicker", "minNights", "maxNights", "theme", "defaultValue", "disabledDatesBetweenChecks", "disabledDates", "locale"]);
     var _a = React.useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.start) || false), start = _a[0], setStart = _a[1];

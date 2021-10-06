@@ -1,7 +1,6 @@
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { I18nextProvider } from 'react-i18next';
-import i18nConfig from './i18n';
+import {frTranslations} from '../translations';
 
 import HotelDatepicker from './HotelDatepicker';
 
@@ -12,7 +11,9 @@ export default {
     },
 } as ComponentMeta<typeof HotelDatepicker>;
 
-const Template: ComponentStory<typeof HotelDatepicker> = (args) => <I18nextProvider i18n={i18nConfig} defaultNS="hoteldatepicker"><HotelDatepicker {...args} /></I18nextProvider>;
+const Template: ComponentStory<typeof HotelDatepicker> = (args) => <HotelDatepicker {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+    i18n: frTranslations,
+};

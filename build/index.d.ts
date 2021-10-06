@@ -2,6 +2,17 @@ import { Locale } from 'date-fns';
 import * as React from 'react';
 import { ComponentType, ReactElement } from 'react';
 
+declare const en: {
+    selected: string;
+    night: string;
+    night_plural: string;
+    button: string;
+    infoMore: string;
+    infoMore_plural: string;
+    infoRange: string;
+    infoDefault: string;
+};
+
 interface HotelDatePickerTheme {
     fontFamily?: string;
     animationSpeed?: string;
@@ -111,10 +122,28 @@ interface HotelDatePickerTheme {
         };
     };
 }
-declare type TooltipCallback = (nights: number, start: Date, hover: Date) => string | ReactElement;
+declare type DayMonthType = 'lastMonth' | 'visibleMonth' | 'nextMonth';
+declare type TooltipCallback = (nights: number, start: Date, hover: MonthDayInfos) => string | ReactElement;
+declare type DayOfMonth = {
+    date: Date;
+    title: string;
+    type: DayMonthType;
+    isValid: boolean;
+    isToday: boolean;
+    isStartDate: boolean;
+    isDayBeforeDisabledDate: boolean;
+    isDisabled: boolean;
+    isFirstEnabledDate: boolean;
+    isDayOfWeekDisabled: boolean;
+    isFirstDisabledDate: boolean;
+    isNoCheckIn: boolean;
+    isNoCheckOut: boolean;
+};
+declare type MonthDayInfos = DayOfMonth;
 declare type HotelDatepickerRef = {
     clear: () => void;
 };
+declare type Translations = typeof en;
 interface InputElementProps {
     value?: string;
     onClick?: () => any;
@@ -137,6 +166,7 @@ declare type HotelDatepickerProps = {
     autoClose: boolean;
     showTopBar: boolean;
     moveBothMonths: boolean;
+    i18n: Translations;
     onDayClick: undefined | false | ((_date: Date) => any);
     onOpenDatepicker: undefined | false | (() => any);
     onSelectRange: undefined | false | ((_start: Date | false, _end: Date | false) => any);
@@ -151,4 +181,4 @@ declare type HotelDatepickerProps = {
 
 declare const HotelDatepicker: React.ForwardRefExoticComponent<Partial<HotelDatepickerProps> & React.RefAttributes<HotelDatepickerRef>>;
 
-export { HotelDatePickerTheme, HotelDatepicker, HotelDatepickerProps, HotelDatepickerRef, InputElementProps };
+export { HotelDatePickerTheme, HotelDatepicker, HotelDatepickerProps, HotelDatepickerRef, InputElementProps, Translations };

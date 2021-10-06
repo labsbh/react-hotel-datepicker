@@ -1,5 +1,6 @@
 import { Locale } from 'date-fns';
 import { ComponentType, ReactElement, RefObject } from 'react';
+import { enTranslations as translations } from './translations';
 
 export interface HotelDatePickerTheme {
     fontFamily?: string;
@@ -123,7 +124,7 @@ export type DayMonthType = 'lastMonth' | 'visibleMonth' | 'nextMonth';
 export type TooltipCallback = (
     nights: number,
     start: Date,
-    hover: Date,
+    hover: MonthDayInfos,
 ) => string | ReactElement;
 
 export type DayOfMonth = {
@@ -174,6 +175,7 @@ export type OptionContext = {
     moveBothMonths: boolean;
     onDayClick: undefined | false | ((date: Date) => any);
     onSelectRange: undefined | false | ((start: Date | false, end: Date | false) => any);
+    i18n: Translations;
 };
 
 export type CalendarContext = {
@@ -190,6 +192,8 @@ export type MonthDayInfos = DayOfMonth;
 export type HotelDatepickerRef = {
     clear: () => void;
 };
+
+export type Translations = typeof translations;
 
 export interface InputElementProps {
     value?: string,
@@ -214,6 +218,7 @@ export type HotelDatepickerProps = {
     autoClose: boolean;
     showTopBar: boolean;
     moveBothMonths: boolean;
+    i18n: Translations;
     onDayClick: undefined | false | ((_date: Date) => any);
     onOpenDatepicker: undefined | false | (() => any);
     onSelectRange: undefined | false | ((_start: Date | false, _end: Date | false) => any);
