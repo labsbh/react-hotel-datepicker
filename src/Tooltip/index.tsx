@@ -5,7 +5,7 @@ import { CalendarCtx, OptionCtx } from '../Store';
 import { TooltipWrapper } from './styled';
 
 const Tooltip = (): ReactElement | null => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('hoteldatepicker');
   const { hoveringTooltip: hoveringTooltipOption } = useContext(OptionCtx);
   const { start, end, dayHover } = useContext(CalendarCtx);
   const [hoveringTooltip] = useState(
@@ -48,7 +48,7 @@ const Tooltip = (): ReactElement | null => {
     <TooltipWrapper style={{ left, top }}>
       {typeof hoveringTooltipOption === 'function'
         ? hoveringTooltipOption(nightCount, start, dayHover.date)
-        : t('night', { count: nightCount })}
+        : t('hoteldatepicker:night', { count: nightCount })}
     </TooltipWrapper>
   );
 };

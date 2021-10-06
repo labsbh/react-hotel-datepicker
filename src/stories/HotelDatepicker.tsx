@@ -9,13 +9,11 @@ import {
 } from 'date-fns';
 import _ from 'lodash';
 import * as React from 'react';
-import { forwardRef, ReactElement, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { forwardRef, ReactElement, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import Calendar from '../Calendar';
 import { useOutsideListener } from '../hooks';
 import { CalendarCtx, defaultOptions, OptionCtx } from '../Store';
-import { enTranslations } from '../translations';
 import {
     CalendarContext,
     DayHover,
@@ -39,7 +37,6 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             onOpenDatepicker: undefined,
             disabledDatesBetweenChecks: true,
             theme: defaultTheme,
-            i18n: enTranslations,
             inputElement: DefaultInput,
         };
         const propsWithDefault: HotelDatepickerProps = _.defaultsDeep({ ...props }, defaults);
@@ -52,7 +49,6 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             defaultValue,
             disabledDatesBetweenChecks,
             disabledDates,
-            i18n,
             locale,
             ...contextProps
         } = propsWithDefault;
@@ -95,10 +91,6 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             locale,
         };
 
-        const {i18n: i18next} = useTranslation();
-
-        const localeCode = i18next.language || 'en';
-
         const { preventContainerClose, format, showTopBar, onSelectRange } = optionContext;
 
         const calendarContext: CalendarContext = {
@@ -138,10 +130,6 @@ const HotelDatepicker = forwardRef<HotelDatepickerRef, Partial<HotelDatepickerPr
             },
             [onSelectRange],
         );
-
-        useEffect(() => {
-            i18next.addResourceBundle(localeCode, 'hoteldatepicker', i18n);
-        }, [localeCode, i18next, i18n]);
 
         const handleInputClick = useCallback(() => {
             setIsOpen(true);

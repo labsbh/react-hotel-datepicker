@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { I18nextProvider } from 'react-i18next';
-import { i18nConfig } from '../translations';
+import i18nConfig from './i18n';
 
 import HotelDatepicker from './HotelDatepicker';
 

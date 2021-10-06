@@ -121,7 +121,7 @@ const useDayProperties = (): ((
     noCheckInDates,
     noCheckOutDates,
   } = useContext(OptionCtx);
-  const { t } = useTranslation();
+  const { t } = useTranslation('hoteldatepicker');
   const isValidDate = useIsValidDate();
   const getClosest = useClosest();
 
@@ -219,14 +219,14 @@ const useDayProperties = (): ((
 
       let title = '';
       if (isNoCheckIn) {
-        title = t('checkin-disabled');
+        title = t('hoteldatepicker:checkin-disabled');
       }
 
       if (isNoCheckOut) {
         if (title) {
           title += '. ';
         }
-        title = t('checkout-disabled');
+        title = t('hoteldatepicker:checkout-disabled');
       }
 
       return {

@@ -7,7 +7,7 @@ import TopBarFeedback from '../TopBarFeedback';
 import { TopBarProps } from '../typings';
 
 const TopBar = ({ handleClose }: TopBarProps): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('hoteldatepicker');
   const { start, end } = useContext(CalendarCtx);
   const { format, locale } = useContext(OptionCtx);
   const nightCount = start && end ? differenceInCalendarDays(end, start) : 0;
@@ -16,7 +16,7 @@ const TopBar = ({ handleClose }: TopBarProps): ReactElement => {
       <Text>
         {start && (
           <Info>
-            <InfoLabel>{t('selected')}&nbsp;</InfoLabel>
+            <InfoLabel>{t('hoteldatepicker:selected')}&nbsp;</InfoLabel>
             <InfoText className="start-day">
               {formatDate(start, format, { locale })}
             </InfoText>
@@ -26,14 +26,14 @@ const TopBar = ({ handleClose }: TopBarProps): ReactElement => {
             </InfoText>
             {end && (
               <InfoText className="selected-days">
-                ({t('night', { count: nightCount })})
+                ({t('hoteldatepicker:night', { count: nightCount })})
               </InfoText>
             )}
           </Info>
         )}
         <TopBarFeedback />
       </Text>
-      <CloseButton onClick={handleClose}>{t('button')}</CloseButton>
+      <CloseButton onClick={handleClose}>{t('hoteldatepicker:button')}</CloseButton>
     </Wrapper>
   );
 };

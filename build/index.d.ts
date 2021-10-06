@@ -2,17 +2,6 @@ import { Locale } from 'date-fns';
 import * as React from 'react';
 import { ComponentType, ReactElement } from 'react';
 
-declare const en: {
-    selected: string;
-    night: string;
-    night_plural: string;
-    button: string;
-    infoMore: string;
-    infoMore_plural: string;
-    infoRange: string;
-    infoDefault: string;
-};
-
 interface HotelDatePickerTheme {
     fontFamily?: string;
     animationSpeed?: string;
@@ -126,7 +115,6 @@ declare type TooltipCallback = (nights: number, start: Date, hover: Date) => str
 declare type HotelDatepickerRef = {
     clear: () => void;
 };
-declare type Translations = typeof en;
 interface InputElementProps {
     value?: string;
     onClick?: () => any;
@@ -149,7 +137,6 @@ declare type HotelDatepickerProps = {
     autoClose: boolean;
     showTopBar: boolean;
     moveBothMonths: boolean;
-    i18n: Translations;
     onDayClick: undefined | false | ((_date: Date) => any);
     onOpenDatepicker: undefined | false | (() => any);
     onSelectRange: undefined | false | ((_start: Date | false, _end: Date | false) => any);
@@ -164,4 +151,4 @@ declare type HotelDatepickerProps = {
 
 declare const HotelDatepicker: React.ForwardRefExoticComponent<Partial<HotelDatepickerProps> & React.RefAttributes<HotelDatepickerRef>>;
 
-export { HotelDatePickerTheme, HotelDatepicker, HotelDatepickerProps, HotelDatepickerRef, InputElementProps, Translations };
+export { HotelDatePickerTheme, HotelDatepicker, HotelDatepickerProps, HotelDatepickerRef, InputElementProps };

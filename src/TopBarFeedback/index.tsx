@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CalendarCtx, OptionCtx } from '../Store';
 
 const TopBarFeedback = (): ReactElement | null => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('hoteldatepicker');
   const { minDays, maxDays } = useContext(OptionCtx);
   const { start, end } = useContext(CalendarCtx);
 
@@ -11,13 +11,11 @@ const TopBarFeedback = (): ReactElement | null => {
     return null;
   }
 
-  let text = '';
+  let text = t('hoteldatepicker:infoDefault');
   if (minDays && maxDays) {
-    text = t('infoRange', { min: minDays - 1, max: maxDays - 1 });
+    text = t('hoteldatepicker:infoRange', { min: minDays - 1, max: maxDays - 1 });
   } else if (minDays) {
-    text = t('infoMore', { count: minDays - 1 });
-  } else {
-    text = t('infoDefault');
+    text = t('hoteldatepicker:infoMore', { count: minDays - 1 });
   }
 
   return <div>{text}</div>;
