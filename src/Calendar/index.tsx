@@ -19,12 +19,18 @@ const Calendar = ({ handleClose, isOpen }: CalendarProps): ReactElement => {
     const { start, end } = useContext(CalendarCtx);
 
     const [firstMonth, setFirstMonth] = useState<Date>(start ? start : startDate ? startDate : new Date());
-    const [secondMonth, setSecondMonth] = useState<Date>(end ? end : start ? addMonths(start, 1) : addMonths(startDate ? startDate : new Date(), 1));
+    const [secondMonth, setSecondMonth] = useState<Date>(() => {
+        if (moveBothMonths) {
+            return start ? addMonths(start, 1) : addMonths(startDate ? startDate : new Date(), 1);
+        }
+
+        return end ? end : start ? addMonths(start, 1) : addMonths(startDate ? startDate : new Date(), 1)
+    });
     const [isRender, setIsRender] = useState(false);
 
     useEffect(() => {
         let defaultStart = start ? start : new Date();
-        let defaultEnd = end ? end : new Date();
+        let defaultEnd =! moveBothMonths && end ? end : new Date();
         if (startDate && differenceInCalendarMonths(defaultStart, startDate) < 0) {
             defaultStart = new Date(startDate.getTime());
         }
@@ -37,8 +43,8 @@ const Calendar = ({ handleClose, isOpen }: CalendarProps): ReactElement => {
         }
 
         setFirstMonth(defaultStart);
-        setSecondMonth(addMonths(defaultEnd, 1));
-    }, [startDate, start, endDate, end]);
+        setSecondMonth(addMonths(defaultEnd, defaultEnd.getMonth() === defaultStart.getMonth() ? 1 : 0));
+    }, [startDate, start, endDate, end, moveBothMonths]);
 
     useEffect(() => {
         if (startOfMonth(firstMonth) >= startOfMonth(secondMonth)) {
