@@ -30,7 +30,8 @@ const Calendar = ({ handleClose, isOpen }: CalendarProps): ReactElement => {
 
     useEffect(() => {
         let defaultStart = start ? start : new Date();
-        let defaultEnd =! moveBothMonths && end ? end : new Date();
+        let defaultEnd = !moveBothMonths && end ? end : defaultStart;
+        console.log(defaultEnd);
         if (startDate && differenceInCalendarMonths(defaultStart, startDate) < 0) {
             defaultStart = new Date(startDate.getTime());
         }
